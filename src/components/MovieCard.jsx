@@ -1,10 +1,12 @@
-function MovieCard() {
+function MovieCard(props) {
+    const {name, releaseYear, director} = props
     return (
         <div> 
-        <h2> Her </h2>
-        <p> Released: 2013 </p>
+        <h2> {name} </h2>
+        <p> {releaseYear} </p>
+         <p> {director} </p>
         </div>
-    )
+    );
 }
 
 export default MovieCard
