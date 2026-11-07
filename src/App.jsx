@@ -28,6 +28,22 @@ movieWatchlist.map(function(movie) {
 
 })
 
+function toggleWatched(movieName) {
+  setMovieWatchlist(prev => prev.map(function(movie) {
+    if(movie.name === movieName) {
+      return {
+        ...movie, 
+        watched: !movie.watched
+
+      } 
+      
+
+    } else {
+      return movie;
+    }
+  }))
+}
+
 
 
   const [favoriteMovies, setFavoriteMovies] = useState(["Her", "Interstellar", "The Social Network"])
@@ -124,20 +140,15 @@ setMovieWatchlist(prev => prev.map(function(movie) {
       })
     }
 
-  <ul> 
-
-    {favoriteMovies.map(function(movie) {
-      return <li>{movie} </li>
-    })}
-
-
-  </ul>
+ 
 
   <ul>
   {movieWatchlist.map(function(movie) {
     return (
       <li key={movie.name}>
+       
         {movie.name} - {String(movie.watched)}
+         <button onClick={() => toggleWatched(movie.name)}> Toggle Watched </button>
       </li>
     );
   })}
