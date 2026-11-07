@@ -8,7 +8,27 @@ import MovieCard from './components/MovieCard'
 
 function App() {
 
-  // const favoriteMovies = ["Her", "Interstellar", "The Social Network"]
+const [movieWatchlist, setMovieWatchlist] = useState([
+  { name: "Her", watched: false },
+  { name: "Interstellar", watched: false },
+  { name: "Inception", watched: false }
+]);
+
+movieWatchlist.map(function(movie) {
+  if(movie.name === 'Her') {
+    return {
+      ...movie,
+      watched: true
+    }
+
+  } else {
+    return movie
+  }
+
+
+})
+
+
 
   const [favoriteMovies, setFavoriteMovies] = useState(["Her", "Interstellar", "The Social Network"])
   
@@ -42,7 +62,14 @@ function App() {
 
     <div> 
       <h2> Movies Watched: {watchedCount}</h2>
-      <button onClick={(() => setWatchCount(watchedCount + 1))}> Add Watched Count </button>
+      <button onClick={() => {
+        setWatchCount(previousWatchCount => previousWatchCount + 1)
+        setWatchCount(previousWatchCount => previousWatchCount + 1)
+        setWatchCount(previousWatchCount => previousWatchCount + 1)
+
+      }
+
+      }> Add Watched Count </button>
       <button onClick={() => setWatchCount(0)}> Reset </button>
       <button onClick={() =>
       {if(watchedCount > 0) {
@@ -50,7 +77,40 @@ setWatchCount(watchedCount - 1)}}}> Remove </button>
 
  <button onClick={() => setShowMovies(!showMovies)}> Show /Hide Movies</button>
 
- <button onClick={()=> setFavoriteMovies([...favoriteMovies, 'Inception' ])}> Add Movie </button>
+ {/* <button onClick={()=> setFavoriteMovies([...favoriteMovies, 'Inception' ])}> Add Movie </button> */}
+
+ <button onClick={(() => {
+  setFavoriteMovies(previousMovies => [...previousMovies, 'Inception', ])
+})
+
+
+
+}> Add Favorite Again</button>
+
+<button onClick={() => {
+    setFavoriteMovies(previousMovies => previousMovies.filter(function(movie) {
+    return movie !== "Interstellar"
+}) )
+
+}}> Filter </button>
+
+<button onClick={() => {
+setMovieWatchlist(prev => prev.map(function(movie) {
+  if(movie.name === 'Her') {
+    return {
+      ...movie,
+      watched: !movie.watched
+    }
+
+  } else {
+    return movie
+  }
+
+})) 
+
+}}> Set Watch List </button>
+
+
        
         
 
@@ -72,6 +132,18 @@ setWatchCount(watchedCount - 1)}}}> Remove </button>
 
 
   </ul>
+
+  <ul>
+  {movieWatchlist.map(function(movie) {
+    return (
+      <li key={movie.name}>
+        {movie.name} - {String(movie.watched)}
+      </li>
+    );
+  })}
+</ul>
+
+
     </div>
   )
 
